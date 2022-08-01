@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from posts.forms import PostForm, CommentForm
-from posts.models import Group, Post, Comments
+from posts.models import Group, Post, Comment
 import shutil
 import tempfile
 from django.conf import settings
@@ -113,7 +113,7 @@ class CommentFormTests(TestCase):
             text='test text',
             author=cls.user
         )
-        cls.comment = Comments.objects.create(
+        cls.comment = Comment.objects.create(
             text='test text',
             author=cls.user,
             post=cls.post
@@ -121,7 +121,7 @@ class CommentFormTests(TestCase):
         cls.form = CommentForm()
 
     def test_comment_form(self):
-        comment_count = Comments.objects.count()
+        comment_count = Comment.objects.count()
         form_data = {
             'text': 'comment',
         }
@@ -132,5 +132,5 @@ class CommentFormTests(TestCase):
         )
         self.assertRedirects(response, reverse(
             'posts:post_detail', kwargs={'post_id': self.post.id}))
-        self.assertEqual(Comments.objects.count(), comment_count + ONE_POST)
-        self.assertTrue(Comments.objects.filter(text='comment',).exists())
+        self.assertEqual(Comment.objects.count(), comment_count + ONE_POST)
+        self.assertTrue(Comment.objects.filter(text='comment',).exists())
