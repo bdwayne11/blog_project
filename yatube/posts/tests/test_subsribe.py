@@ -46,7 +46,7 @@ class CacheTests(TestCase):
         cls.author_client.force_login(cls.author)
         cls.follower_client = Client()
         cls.follower_client.force_login(cls.follower)
- 
+
     def test_authorized_user_can_subscribe(self):
         """Проверка авторизированного пользователя на подписку"""
         response = self.author_client.get(
@@ -68,7 +68,7 @@ class CacheTests(TestCase):
         response = self.author_client.get(reverse("posts:follow_index"))
         count = len(response.context.get("page_obj"))
         self.assertEqual(0, count)
-   
+
     def test_authorized_user_can_follow(self):
         """Авторизированный может подписаться"""
         if Follow.objects.filter(
