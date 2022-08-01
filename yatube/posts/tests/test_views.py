@@ -173,7 +173,7 @@ class PostPagesTests(TestCase):
             reverse('posts:group_list', kwargs={'slug': 'test-slug2'})
         )
         self.assertNotIn(self.post, response.context.get('page_obj'))
-    
+   
     def test_image_context_exists(self):
         templates_page_names = {
             reverse('posts:index'): 'posts/index.html',

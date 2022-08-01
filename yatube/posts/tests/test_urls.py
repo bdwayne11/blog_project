@@ -29,7 +29,6 @@ class TaskURLTests(TestCase):
         self.authorized_client.force_login(self.user)
         self.authorized_client_2 = Client()
         self.authorized_client_2.force_login(self.user2)
-        
 
     def test_public_pages(self):
         """Проверка общедоступных страниц"""
