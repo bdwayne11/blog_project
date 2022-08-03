@@ -7,6 +7,7 @@ from posts.models import Post, Group
 from django.conf import settings
 import shutil
 import tempfile
+from django.core.cache import cache
 
 User = get_user_model()
 
@@ -32,6 +33,7 @@ class PostViewTests(TestCase):
     def setUp(self):
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
+        cache.clear()
 
     def test_pages_uses_correct_template(self):
         """URL-адрес использует соответствующий шаблон."""

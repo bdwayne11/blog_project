@@ -3,6 +3,7 @@ from django.test import TestCase, Client
 from posts.models import Group, Post
 from http import HTTPStatus
 from django.urls import reverse
+from django.core.cache import cache
 
 User = get_user_model()
 
@@ -29,6 +30,7 @@ class TaskURLTests(TestCase):
         self.authorized_client.force_login(self.user)
         self.authorized_client_2 = Client()
         self.authorized_client_2.force_login(self.user2)
+        cache.clear()
 
     def test_public_pages(self):
         """Проверка общедоступных страниц"""
@@ -101,10 +103,10 @@ class TaskURLTests(TestCase):
         """Ссылка использует соответствующий HTML-шаблон"""
         template_url_name = {
             '/': 'posts/index.html',
-            '/group/test-slug/': 'posts/group_list.html',
-            '/profile/auth/': 'posts/profile.html',
-            '/posts/1/': 'posts/post_detail.html',
-            f'/posts/{self.post.id}/edit/': 'posts/create_post.html',
+            f'/group/{TaskURLTests.group.slug}/': 'posts/group_list.html',
+            f'/profile/{TaskURLTests.user.username}/': 'posts/profile.html',
+            f'/posts/{TaskURLTests.post.id}/': 'posts/post_detail.html',
+            f'/posts/{TaskURLTests.post.id}/edit/': 'posts/create_post.html',
             '/create/': 'posts/create_post.html',
         }
         for url, template in template_url_name.items():
@@ -136,4 +138,12 @@ class PostURLTests(TestCase):
         post_to_delete.delete()
         response_2 = self.guest_client.get(reverse('posts:index'))
         resp_2 = response_2.content
-        self.assertTrue(resp_1 == resp_2)
+        self.assertEqual(resp_1, resp_2)
+
+    def test_index_after_cache_deletion(self):
+        response_1 = self.guest_client.get(reverse('posts:index'))
+        resp_1 = response_1.content
+        cache.clear()
+        response_3 = self.guest_client.get(reverse('posts:index'))
+        resp_3 = response_3.content
+        self.assertNotEqual(resp_1, resp_3)

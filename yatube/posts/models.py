@@ -34,7 +34,9 @@ class Post(models.Model):
     image = models.ImageField(
         'Картинка',
         upload_to='posts/',
-        blank=True
+        blank=True,
+        null=True,
+        help_text='Вставьте картинку'
     )
 
     def __str__(self):
@@ -51,13 +53,13 @@ class Comment(models.Model):
         Post,
         on_delete=models.CASCADE,
         verbose_name='Имя поста',
-        related_name='comments'
+        related_name='comments',
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='Имя автора',
-        related_name='author_comments'
+        related_name='comments'
     )
     text = models.TextField('Комментарий', help_text='Введите текст')
     created = models.DateTimeField(
@@ -90,6 +92,6 @@ class Follow(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['author', 'user'],
-                name='unique follows'
+                name='unique_follows'
             )
         ]

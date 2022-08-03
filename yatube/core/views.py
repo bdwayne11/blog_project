@@ -11,5 +11,5 @@ def csrf_failure(request, reason=''):
     return render(request, 'core/403csrf.html')
 
 
-def page_fail(request, exception):
+def page_fail(request, *args, **argv):
     return render(request, 'core/500.html', {'path': request.path}, status=500)
