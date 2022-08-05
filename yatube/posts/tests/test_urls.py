@@ -139,11 +139,8 @@ class PostURLTests(TestCase):
         response_2 = self.guest_client.get(reverse('posts:index'))
         resp_2 = response_2.content
         self.assertEqual(resp_1, resp_2)
-
-    def test_index_after_cache_deletion(self):
-        response_1 = self.guest_client.get(reverse('posts:index'))
-        resp_1 = response_1.content
         cache.clear()
         response_3 = self.guest_client.get(reverse('posts:index'))
         resp_3 = response_3.content
-        self.assertNotEqual(resp_1, resp_3)
+        self.assertNotEqual(resp_3, resp_1)
+        self.assertNotEqual(resp_3, resp_2)
