@@ -68,9 +68,9 @@ def post_create(request):
         files=request.FILES or None,
     )
     if form.is_valid():
-        form = form.save(commit=False)
-        form.author_id = request.user.id
-        form.save()
+        post = form.save(commit=False)
+        post.author_id = request.user.id
+        post.save()
         return redirect('posts:profile', name)
     return render(request, 'posts/create_post.html', {'form': form})
 

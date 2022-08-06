@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Group
+from .models import Post, Group, Comment, Follow
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -13,3 +13,7 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Post, PostAdmin)
 
 admin.site.register(Group)
+
+admin.site.register(Comment)
+
+admin.site.register(Follow)
