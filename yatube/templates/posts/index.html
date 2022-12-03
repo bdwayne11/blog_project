@@ -9,18 +9,19 @@
             {% include 'includes/switcher.html' %}
             {% for post in page_obj %}
                 <ul>
-                    <li>Автор: {{ post.author.get_full_name }} <a href="{% url 'posts:profile' post.author.username %}">все
-                        посты пользователя</a></li>
+                    <li>
+                        Автор: {{ post.author.get_full_name }} <a class="btn btn-primary btn-sm" href="{% url 'posts:profile' post.author.username %}" role="button">все посты пользователя</a>
+                    </li>
                     <li>Дата публикации: {{ post.pub_date|date:"d E Y" }}</li>
                 </ul>
                 {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
                     <img class="card-img my-2" src="{{ im.url }}">
                 {% endthumbnail %}
                 <p>{{ post.text }}</p>
-                <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
+                <a class="btn btn-primary btn-sm" href="{% url 'posts:post_detail' post.id %}" role="button">подробная информация</a>
                 <br>
                 {% if post.group %}
-                    <a href="{% url 'posts:group_list' post.group.slug %}" class="text-decoration-none">все записи группы</a>
+                    <a class="btn btn-primary btn-sm" href="{% url 'posts:group_list' post.group.slug %}" role="button">все записи группы</a>
                 {% endif %}
                 {% if not forloop.last %}
                     <hr/>

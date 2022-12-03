@@ -26,10 +26,8 @@ SECRET_KEY = '+y2^t_#(qta!n09rcil@0k-z6n_=0+1ihj_zxx_i1m(lyrf@2a'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '[::1]',
-    'testserver',
+    'www.dwayne.pythonanywhere.com',
+    'dwayne.pythonanywhere.com',
 ]
 
 LOGIN_URL = 'users:login'
@@ -51,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sorl.thumbnail',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +59,12 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
 ]
 
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
@@ -149,3 +153,4 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
+

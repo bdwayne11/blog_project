@@ -1,6 +1,6 @@
 {% load static %} 
 <header>
-  <nav class="navbar navbar-light" style="background-color: rgb(3, 217, 64)">
+  <nav class="navbar navbar-light rounded-pill" style="background-color: rgb(154, 196, 245)">
     <div class="container">
       <a class="navbar-brand" href="{% url 'posts:index' %}">
         <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -30,7 +30,7 @@
           href="{% url 'users:logout' %}">Выйти</a>
         </li>
         <li>
-            Пользователь: {{ user.username }}
+          <span class="nav nav-link accent - text navbar - text">Пользователь: {{ user.username }}</span>
         </li>
         {% else %}
         <li class="nav-item"> 
