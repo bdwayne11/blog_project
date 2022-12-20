@@ -19,7 +19,7 @@
 1. Клонируйте репозиторий и перейдите в него в командной строке:
 
 ```
-git clone 
+git clone git@github.com:bdwayne11/blog_project.git
 ```
 
 ```
